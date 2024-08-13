@@ -7,6 +7,10 @@ spring:
     username: root
     password: Netec123
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
 
 server:
   port: 8081
