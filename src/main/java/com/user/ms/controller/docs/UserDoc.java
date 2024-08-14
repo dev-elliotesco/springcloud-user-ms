@@ -115,5 +115,5 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    ResponseEntity<Void> deleteUser(@PathVariable String id);
+    ResponseEntity<String> deleteUser(@PathVariable String id);
 }

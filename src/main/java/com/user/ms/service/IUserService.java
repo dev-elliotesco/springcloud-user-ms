@@ -11,5 +11,5 @@ public interface IUserService {
     ResponseEntity<List<UserEntity>> getAllUsers();
     ResponseEntity<UserEntity> getUserById(String id);
     ResponseEntity<UserEntity> updateUser(String id, UserEntity userEntity);
-    ResponseEntity<Void> deleteUser(String id);
+    ResponseEntity<String> deleteUser(String id);
 }

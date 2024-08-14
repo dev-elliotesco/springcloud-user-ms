@@ -37,7 +37,7 @@ public class UserController implements UserDoc {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         return userService.deleteUser(id);
     }
 }
