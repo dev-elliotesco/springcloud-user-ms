@@ -1,5 +1,6 @@
 package com.user.ms.service.impl;
 
+import com.user.ms.dto.UserDTO;
 import com.user.ms.exception.SaveFailedException;
 import com.user.ms.exception.UserNotFoundException;
 import com.user.ms.model.UserEntity;
@@ -20,41 +21,42 @@ public class UserServiceImpl implements IUserService {
     private final IUserRepository iUserRepository;
 
     @Override
-    public ResponseEntity<UserEntity> createUser(UserEntity userEntity) {
+    public ResponseEntity<UserDTO> createUser(UserDTO userDTO) {
+        UserEntity userEntity = toEntity(userDTO);
         try{
             UserEntity newUser = this.iUserRepository.save(userEntity);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(newUser);
+                    .body(toDTO(newUser));
         }catch (Exception e){
             throw new SaveFailedException(MessageUtils.SAVE_FAILED + e.getMessage());
         }
     }
 
     @Override
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserEntity> users = iUserRepository.findAll();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users.stream().map(this::toDTO).toList());
     }
 
     @Override
-    public ResponseEntity<UserEntity> getUserById(String id) {
+    public ResponseEntity<UserDTO> getUserById(String id) {
         UserEntity user = iUserRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(toDTO(user));
     }
 
     @Override
-    public ResponseEntity<UserEntity> updateUser(String id, UserEntity userEntity) {
+    public ResponseEntity<UserDTO> updateUser(String id, UserDTO userDTO) {
         UserEntity user = iUserRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
 
-        user.setTypeDocument(userEntity.getTypeDocument());
-        user.setDocument(userEntity.getDocument());
-        user.setName(userEntity.getName());
+        user.setTypeDocument(userDTO.getTypeDocument());
+        user.setDocument(userDTO.getDocument());
+        user.setName(userDTO.getName());
 
         iUserRepository.save(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(toDTO(user));
     }
 
     @Override
@@ -65,5 +67,23 @@ public class UserServiceImpl implements IUserService {
         } else {
             throw new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id);
         }
+    }
+
+    private UserDTO toDTO(UserEntity userEntity) {
+        return UserDTO.builder()
+                .id(userEntity.getId())
+                .typeDocument(userEntity.getTypeDocument())
+                .document(userEntity.getDocument())
+                .name(userEntity.getName())
+                .build();
+    }
+
+    private UserEntity toEntity(UserDTO userDTO) {
+        return UserEntity.builder()
+                .id(userDTO.getId())
+                .typeDocument(userDTO.getTypeDocument())
+                .document(userDTO.getDocument())
+                .name(userDTO.getName())
+                .build();
     }
 }

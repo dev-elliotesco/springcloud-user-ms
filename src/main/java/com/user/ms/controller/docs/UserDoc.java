@@ -1,6 +1,6 @@
 package com.user.ms.controller.docs;
 
-import com.user.ms.model.UserEntity;
+import com.user.ms.dto.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserDoc {
 
 
-    @Operation(summary = "Create user", description = "This operation is for create a new user in the system")
+    @Operation(summary = "Create user", description = "This operation is for create a user")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
@@ -35,9 +35,9 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO);
 
-    @Operation(summary = "Get all users", description = "This operation is for get all users in the system")
+    @Operation(summary = "Get all users", description = "This operation is for get all users")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -45,7 +45,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             ),
             @ApiResponse(
-                    responseCode = "204",
+                    responseCode = "404",
                     description = "No users found",
                     content = @Content(mediaType = "application/json")
             ),
@@ -55,7 +55,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    ResponseEntity<List<UserEntity>> getAllUsers();
+    public ResponseEntity<List<UserDTO>> getAllUsers();
 
     @Operation(summary = "Get user by id", description = "This operation is for get a user by id")
     @ApiResponses(value = {
@@ -75,7 +75,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    ResponseEntity<UserEntity> getUserById(@PathVariable String id);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id);
 
     @Operation(summary = "Update user", description = "This operation is for update a user by id")
     @ApiResponses(value = {
@@ -95,12 +95,12 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    ResponseEntity<UserEntity> updateUser(@PathVariable String id, @RequestBody UserEntity userEntity);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO);
 
     @Operation(summary = "Delete user", description = "This operation is for delete a user by id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
+                    responseCode = "200",
                     description = "User deleted",
                     content = @Content(mediaType = "application/json")
             ),
@@ -115,5 +115,5 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    ResponseEntity<String> deleteUser(@PathVariable String id);
+    public ResponseEntity<String> deleteUser(@PathVariable String id);
 }
