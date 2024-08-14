@@ -1,6 +1,7 @@
 package com.user.ms.service.impl;
 
 import com.user.ms.dto.UserDTO;
+import com.user.ms.exception.UserAlreadyExistsException;
 import com.user.ms.exception.UserNotFoundException;
 import com.user.ms.model.UserEntity;
 import com.user.ms.repository.IUserRepository;
@@ -22,6 +23,12 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<UserEntity> createUser(UserDTO userDTO) {
+        var user = iUserRepository.findByDocumentAndTypeDocument(userDTO.getDocument(), userDTO.getTypeDocument());
+
+        if (user.isPresent()) {
+            throw new UserAlreadyExistsException(MessageUtils.USER_ALREADY_EXISTS);
+        }
+
         UserEntity userEntity = toEntity(userDTO);
         iUserRepository.save(userEntity);
         return ResponseEntity
