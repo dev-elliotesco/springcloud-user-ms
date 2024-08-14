@@ -4,6 +4,7 @@ import com.user.ms.controller.docs.UserDoc;
 import com.user.ms.dto.UserDTO;
 import com.user.ms.model.UserEntity;
 import com.user.ms.service.IUserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class UserController implements UserDoc {
     private final IUserService userService;
 
     @PostMapping
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserEntity> createUser(@RequestBody @Valid UserDTO userDTO) {
         return userService.createUser(userDTO);
     }
 

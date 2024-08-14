@@ -1,7 +1,6 @@
 package com.user.ms.service.impl;
 
 import com.user.ms.dto.UserDTO;
-import com.user.ms.exception.SaveFailedException;
 import com.user.ms.exception.UserNotFoundException;
 import com.user.ms.model.UserEntity;
 import com.user.ms.repository.IUserRepository;
@@ -24,14 +23,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseEntity<UserEntity> createUser(UserDTO userDTO) {
         UserEntity userEntity = toEntity(userDTO);
-        try{
-            UserEntity newUser = this.iUserRepository.save(userEntity);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(userEntity);
-        }catch (Exception e){
-            throw new SaveFailedException(MessageUtils.SAVE_FAILED + e.getMessage());
-        }
+        iUserRepository.save(userEntity);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userEntity);
     }
 
     @Override
@@ -68,14 +63,6 @@ public class UserServiceImpl implements IUserService {
         } else {
             throw new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id);
         }
-    }
-
-    private UserDTO toDTO(UserEntity userEntity) {
-        return UserDTO.builder()
-                .typeDocument(userEntity.getTypeDocument())
-                .document(userEntity.getDocument())
-                .name(userEntity.getName())
-                .build();
     }
 
     private UserEntity toEntity(UserDTO userDTO) {

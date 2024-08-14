@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserDTO userDTO);
+    public ResponseEntity<UserEntity> createUser(@RequestBody @Valid UserDTO userDTO);
 
     @Operation(summary = "Get all users", description = "This operation is for get all users")
     @ApiResponses(value = {
