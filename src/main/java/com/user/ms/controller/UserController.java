@@ -5,10 +5,9 @@ import com.user.ms.model.UserEntity;
 import com.user.ms.service.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,5 +19,25 @@ public class UserController implements UserDoc {
     @PostMapping
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
         return userService.createUser(userEntity);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserEntity> getUserById(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, @RequestBody UserEntity userEntity) {
+        return userService.updateUser(id, userEntity);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        return userService.deleteUser(id);
     }
 }
