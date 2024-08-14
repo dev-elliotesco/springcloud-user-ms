@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,33 +22,33 @@ public class UserServiceImpl implements IUserService {
     private final IUserRepository iUserRepository;
 
     @Override
-    public ResponseEntity<UserDTO> createUser(UserDTO userDTO) {
+    public ResponseEntity<UserEntity> createUser(UserDTO userDTO) {
         UserEntity userEntity = toEntity(userDTO);
         try{
             UserEntity newUser = this.iUserRepository.save(userEntity);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(toDTO(newUser));
+                    .body(userEntity);
         }catch (Exception e){
             throw new SaveFailedException(MessageUtils.SAVE_FAILED + e.getMessage());
         }
     }
 
     @Override
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
         List<UserEntity> users = iUserRepository.findAll();
-        return ResponseEntity.ok(users.stream().map(this::toDTO).toList());
+        return ResponseEntity.ok(users);
     }
 
     @Override
-    public ResponseEntity<UserDTO> getUserById(String id) {
+    public ResponseEntity<UserEntity> getUserById(String id) {
         UserEntity user = iUserRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
-        return ResponseEntity.ok(toDTO(user));
+        return ResponseEntity.ok(user);
     }
 
     @Override
-    public ResponseEntity<UserDTO> updateUser(String id, UserDTO userDTO) {
+    public ResponseEntity<UserEntity> updateUser(String id, UserDTO userDTO) {
         UserEntity user = iUserRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
 
@@ -55,8 +56,8 @@ public class UserServiceImpl implements IUserService {
         user.setDocument(userDTO.getDocument());
         user.setName(userDTO.getName());
 
-        iUserRepository.save(user);
-        return ResponseEntity.ok(toDTO(user));
+        UserEntity updatedUser = iUserRepository.save(user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @Override
@@ -71,7 +72,6 @@ public class UserServiceImpl implements IUserService {
 
     private UserDTO toDTO(UserEntity userEntity) {
         return UserDTO.builder()
-                .id(userEntity.getId())
                 .typeDocument(userEntity.getTypeDocument())
                 .document(userEntity.getDocument())
                 .name(userEntity.getName())
@@ -80,7 +80,7 @@ public class UserServiceImpl implements IUserService {
 
     private UserEntity toEntity(UserDTO userDTO) {
         return UserEntity.builder()
-                .id(userDTO.getId())
+                .id(UUID.randomUUID().toString())
                 .typeDocument(userDTO.getTypeDocument())
                 .document(userDTO.getDocument())
                 .name(userDTO.getName())

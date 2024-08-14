@@ -1,6 +1,7 @@
 package com.user.ms.controller.docs;
 
 import com.user.ms.dto.UserDTO;
+import com.user.ms.model.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,7 +36,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO);
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserDTO userDTO);
 
     @Operation(summary = "Get all users", description = "This operation is for get all users")
     @ApiResponses(value = {
@@ -55,7 +56,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<List<UserDTO>> getAllUsers();
+    public ResponseEntity<List<UserEntity>> getAllUsers();
 
     @Operation(summary = "Get user by id", description = "This operation is for get a user by id")
     @ApiResponses(value = {
@@ -75,7 +76,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<UserDTO> getUserById(@PathVariable String id);
+    public ResponseEntity<UserEntity> getUserById(@PathVariable String id);
 
     @Operation(summary = "Update user", description = "This operation is for update a user by id")
     @ApiResponses(value = {
@@ -95,7 +96,7 @@ public interface UserDoc {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO);
 
     @Operation(summary = "Delete user", description = "This operation is for delete a user by id")
     @ApiResponses(value = {
