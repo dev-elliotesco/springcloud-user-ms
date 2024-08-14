@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+// RECORD TODO
 @Data
 @Builder
 @AllArgsConstructor

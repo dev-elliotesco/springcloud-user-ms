@@ -1,8 +1,7 @@
 package com.user.ms.service.impl;
 
 import com.user.ms.dto.UserDTO;
-import com.user.ms.exception.UserAlreadyExistsException;
-import com.user.ms.exception.UserNotFoundException;
+import com.user.ms.exception.UserException;
 import com.user.ms.model.UserEntity;
 import com.user.ms.repository.IUserRepository;
 import com.user.ms.service.IUserService;
@@ -26,7 +25,7 @@ public class UserServiceImpl implements IUserService {
         var user = iUserRepository.findByDocumentAndTypeDocument(userDTO.getDocument(), userDTO.getTypeDocument());
 
         if (user.isPresent()) {
-            throw new UserAlreadyExistsException(MessageUtils.USER_ALREADY_EXISTS);
+            throw new UserException(MessageUtils.USER_ALREADY_EXISTS);
         }
 
         UserEntity userEntity = toEntity(userDTO);
@@ -45,14 +44,14 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseEntity<UserEntity> getUserById(String id) {
         UserEntity user = iUserRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
+                .orElseThrow(() -> new UserException(MessageUtils.USER_NOT_FOUND + id));
         return ResponseEntity.ok(user);
     }
 
     @Override
     public ResponseEntity<UserEntity> updateUser(String id, UserDTO userDTO) {
         UserEntity user = iUserRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id));
+                .orElseThrow(() -> new UserException(MessageUtils.USER_NOT_FOUND + id));
 
         user.setTypeDocument(userDTO.getTypeDocument());
         user.setDocument(userDTO.getDocument());
@@ -68,7 +67,7 @@ public class UserServiceImpl implements IUserService {
             iUserRepository.deleteById(id);
             return ResponseEntity.ok(MessageUtils.USER_DELETED_SUCCESSFULLY);
         } else {
-            throw new UserNotFoundException(MessageUtils.USER_NOT_FOUND + id);
+            throw new UserException(MessageUtils.USER_NOT_FOUND + id);
         }
     }
 
