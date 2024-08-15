@@ -9,5 +9,6 @@ public class MessageUtils {
     public static final String DOCUMENT_SIZE_CONSTRAINT = "Document size must be between 2 and 10";
     public static final String TYPE_DOCUMENT_CONSTRAINT = "The document type must be CC or CE";
     public static final String NAME_SIZE_CONSTRAINT = "Name size must be between 3 and 8";
-
+    public static final String WELCOME_SUBJECT = "Welcome to the system";
+    public static final String WELCOME_MESSAGE = "Welcome to the system, we hope you enjoy our services";
 }

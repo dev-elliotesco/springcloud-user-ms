@@ -18,7 +18,6 @@ import java.util.List;
 @Tag(name = "User controller", description = "API exposed to manage users")
 public interface UserDoc {
 
-
     @Operation(summary = "Create user", description = "This operation is for create a user")
     @ApiResponses(value = {
             @ApiResponse(

@@ -1,7 +1,9 @@
 package com.user.ms.service.impl;
 
+import com.user.ms.dto.EmailDTO;
 import com.user.ms.dto.UserDTO;
 import com.user.ms.exception.UserException;
+import com.user.ms.external.service.INotificationServiceFeingn;
 import com.user.ms.model.UserEntity;
 import com.user.ms.repository.IUserRepository;
 import com.user.ms.service.IUserService;
@@ -20,6 +22,8 @@ public class UserServiceImpl implements IUserService {
 
     private final IUserRepository iUserRepository;
 
+    private final INotificationServiceFeingn iNotificationServiceFeingn;
+
     @Override
     public ResponseEntity<UserEntity> createUser(UserDTO userDTO) {
         var user = iUserRepository.findByDocumentAndTypeDocument(userDTO.getDocument(), userDTO.getTypeDocument());
@@ -27,6 +31,14 @@ public class UserServiceImpl implements IUserService {
         if (user.isPresent()) {
             throw new UserException(MessageUtils.USER_ALREADY_EXISTS);
         }
+
+        EmailDTO email = EmailDTO.builder()
+                .to("eescovitchr@gmail.com")
+                .subject(MessageUtils.WELCOME_SUBJECT)
+                .body(MessageUtils.WELCOME_MESSAGE)
+                .build();
+
+        this.iNotificationServiceFeingn.sendEmail(email);
 
         UserEntity userEntity = toEntity(userDTO);
         iUserRepository.save(userEntity);
