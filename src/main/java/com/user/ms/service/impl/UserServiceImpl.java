@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         EmailDTO email = EmailDTO.builder()
-                .to("eescovitchr@gmail.com")
+                .to(userDTO.getEmail())
                 .subject(MessageUtils.WELCOME_SUBJECT)
                 .body(MessageUtils.WELCOME_MESSAGE)
                 .build();
@@ -89,6 +89,7 @@ public class UserServiceImpl implements IUserService {
                 .typeDocument(userDTO.getTypeDocument())
                 .document(userDTO.getDocument())
                 .name(userDTO.getName())
+                .email(userDTO.getEmail())
                 .build();
     }
 }

@@ -22,5 +22,6 @@ public class UserEntity {
     private String typeDocument;
     private String document;
     private String name;
+    private String email;
 
 }

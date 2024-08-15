@@ -1,10 +1,7 @@
 package com.user.ms.dto;
 
 import com.user.ms.utils.MessageUtils;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +30,9 @@ public class UserDTO {
     @NotEmpty
     @Size(min = 3,max = 8, message = MessageUtils.NAME_SIZE_CONSTRAINT)
     private String name;
+
+    @NotBlank
+    @NotEmpty
+    @Email(message = MessageUtils.INVALID_EMAIL)
+    private String email;
 }
