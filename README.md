@@ -46,8 +46,14 @@ Eureka en el siguiente repositorio: [springcloud-eureka-service](https://github.
    Puedes encontrar el código fuente y las instrucciones para ejecutar el servidor
    Gateway en el siguiente repositorio: [springcloud-gateway-service](https://github.com/dev-elliotesco/springcloud-gateway-service)
 
+O  puedes utilizar el archivo `docker-compose.yml  proporcionado en el repositorio de todo el proyecto 
+[springcloud-demo-mr](https://github.com/dev-elliotesco/springcloud-demo-mr) para levantar la aplicación con la 
+configuración por defecto y base de datos integrada.
+
 ## Uso
 Pasos para ejecutar el proyecto.
+
+### Localmente:
 
 ```bash
 # Comando para iniciar el proyecto usando Gradle
@@ -58,9 +64,31 @@ Pasos para ejecutar el proyecto.
 # O ejecutando el JAR directamente
 java -jar build/libs/user-ms-0.0.1-SNAPSHOT.jar
 ```
+Para generar el JAR:
 
 ```bash
-# O utilizando Docker Compose
+# Generando el JAR
+# Nota: Este comando compila el código, ejecuta las pruebas y genera el JAR
+/gradlew build
+```
+
+```bash
+# Construye la imagen Docker
+docker build -t user-ms .
+
+# Ejecuta el contenedor Docker
+docker run -p xxxxx user-ms
+```
+### Docker Compose (Todos los servicios)
+
+```bash
+# Clona este repositorio del proyecto completo
+git clone https://github.com/dev-elliotesco/springcloud-demo-mr.git
+
+# Entra en el directorio del proyecto completo
+cd springcloud-demo-mr
+
+# Ejecuta Docker Compose
 docker-compose up
 ```
 
