@@ -3,7 +3,7 @@ package com.user.ms.service.impl;
 import com.user.ms.dto.EmailDTO;
 import com.user.ms.dto.UserDTO;
 import com.user.ms.exception.UserException;
-import com.user.ms.external.service.INotificationServiceFeingn;
+import com.user.ms.external.service.INotificationServiceFeign;
 import com.user.ms.model.UserEntity;
 import com.user.ms.repository.IUserRepository;
 import com.user.ms.service.IUserService;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 
     private final IUserRepository iUserRepository;
 
-    private final INotificationServiceFeingn iNotificationServiceFeingn;
+    private final INotificationServiceFeign iNotificationServiceFeign;
 
     @Override
     public ResponseEntity<UserEntity> createUser(UserDTO userDTO) {
@@ -38,7 +38,7 @@ public class UserServiceImpl implements IUserService {
                 .body(MessageUtils.WELCOME_MESSAGE)
                 .build();
 
-        this.iNotificationServiceFeingn.sendEmail(email);
+        this.iNotificationServiceFeign.sendEmail(email);
 
         UserEntity userEntity = toEntity(userDTO);
         iUserRepository.save(userEntity);

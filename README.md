@@ -12,6 +12,7 @@ como la creación, actualización, eliminación y consulta de usuarios.
 - [Spring Cloud](https://spring.io/projects/spring-cloud)
 - [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)
 - [Eureka Server](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-eureka-server.html)
+- [MySQL](https://www.mysql.com/)
 - [Gradle](https://gradle.org/)
 - [Docker](https://www.docker.com/)
 

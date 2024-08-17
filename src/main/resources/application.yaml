@@ -17,7 +17,7 @@ server:
 
 springdoc:
   api-docs:
-    path: /api-docs
+    path: /api-user-docs
   packagesToScan: com.user.ms.controller
 
 eureka:

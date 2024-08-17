@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "NOTIFICATIONS-MS/api/email")
-public interface INotificationServiceFeingn {
+public interface INotificationServiceFeign {
     @PostMapping("/send")
     ResponseEntity<String> sendEmail(@RequestBody EmailDTO emailDTO);
 }
