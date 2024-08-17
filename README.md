@@ -10,6 +10,7 @@ como la creación, actualización, eliminación y consulta de usuarios.
 - Java Development Kit (JDK) 17
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Spring Cloud](https://spring.io/projects/spring-cloud)
+- [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)
 - [Eureka Server](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-eureka-server.html)
 - [Gradle](https://gradle.org/)
 - [Docker](https://www.docker.com/)
@@ -37,6 +38,10 @@ la base de datos:
 - `DB_URL`: La URL de tu base de datos. Por ejemplo, `jdbc:mysql://localhost:3308/user_db`.
 - `DB_USERNAME`: El nombre de usuario de tu base de datos. Por ejemplo, `root`.
 - `DB_PASSWORD`: La contraseña de tu base de datos.
+
+Por ejemplo, puedes definir las variables de entorno en tu sistema operativo o en tu IDE. Si estás
+utilizando IntelliJ IDEA, puedes definir las variables de entorno en la configuración de tu
+Run/Debug Configuration.
 
 2. Asegúrate de tener el servidor Eureka en ejecución. 
 Puedes encontrar el código fuente y las instrucciones para ejecutar el servidor 
